@@ -25,5 +25,8 @@ Credit Application Data: Submitted by the customer, processed through eligibilit
 2. **[Service Architecture Diagram](./assets/Architecture%20Diagram.png)**  
    A diagram of the interaction between the credit service and the customer API via webhooks.
 
-3. **[Task Description](./TASK_DESCRIPTION.md)**  
+3. **[Service Architecture Diagram Incase Of Delay](./assets/Architecture%20Diagram%20With%20Delay.png)**  
+   A diagram of the interaction between the credit service and the customer API via webhooks in case of delay response from customer API.
+
+4. **[Task Description](./TASK_DESCRIPTION.md)**  
    A detailed description of the tasks to be completed for this coding challenge.
