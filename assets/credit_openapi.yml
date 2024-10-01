@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: Credit Service API
+  description: API for managing credit applications.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Credit server
+
+paths:
+  /credit-application:
+    post:
+      summary: Create a credit application
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditApplicationRequest'
+      responses:
+        '201':
+          description: Credit application created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditApplicationResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    CreditApplicationRequest:
+      type: object
+      required:
+        - customer_id
+        - amount
+      properties:
+        customer_id:
+          type: string
+          example: "12345"
+        amount:
+          type: number
+          format: float
+          example: 1000.00
+
+    CreditApplicationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1"
+        customer_id:
+          type: string
+          example: "12345"
+        amount:
+          type: number
+          format: float
+          example: 1000.00
+        status:
+          type: string
+          example: "approved"
+        created_at:
+          type: string
+          format: date-time
+          example: "2023-07-26T18:25:43.511Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2023-07-26T18:25:43.511Z"
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "An error occurred"

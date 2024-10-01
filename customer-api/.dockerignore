@@ -1,0 +1,23 @@
+# Ignore node_modules and bun's cache
+node_modules
+bun.lockb
+
+# Ignore Dockerfile and Docker Compose file
+Dockerfile
+docker-compose.yml
+
+# Ignore Git and other version control files
+.git
+.gitignore
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+
+*.db
+
+# Ignore build output
+dist
+build
+
+.env

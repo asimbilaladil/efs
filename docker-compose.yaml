@@ -1,0 +1,46 @@
+version: "3"
+services:
+  customer-api:
+    build:
+      context: ./customer-api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=file:./dev.db
+      - MAX_DELAY=15000
+      - IGNORE_WEBHOOK=false
+      - CUSTOMER_API_HOSTNAME=credit-service
+    networks:
+      - my-network
+
+  credit-service:
+    build:
+      context: ./credit-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./credit-service:/app
+    environment:
+      - MAX_DELAY=15000
+      - IGNORE_WEBHOOK=false
+      - MONGO_URL=mongodb://credit-db:27017/creditService
+      - CUSTOMER_API_HOSTNAME=customer-api
+    depends_on:
+      - credit-db
+    networks:
+      - my-network
+
+  credit-db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/creditdb:/data/db
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
